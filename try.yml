@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: "installing nodejs"
+      get_url: 
+        url: https://deb.nodesource.com/setup_{{ nodejs_version }}.x
+        dest: ~/nodejs
+        mode: 0755
+    - name: Nodejs Package
+      command: ~/nodejs
+      args:
+        creates: /etc/apt/sources.list.d/nodesource.list
+    - name: Install Node.js
+      apt:
+        name: nodejs
+        state: present
+
